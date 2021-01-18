@@ -5,7 +5,7 @@ const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const Campground = require('./models/campground');
 
-mongoose.connect('mongodb://localhost:27017/explore-scotland', {
+mongoose.connect('mongodb://localhost:27017/camplife', {
    useNewUrlParser: true,
    useCreateIndex: true,
    useUnifiedTopology: true 
