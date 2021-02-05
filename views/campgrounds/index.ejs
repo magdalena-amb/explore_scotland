@@ -10,7 +10,9 @@
                     <div class="col-md-4">
                         <% if(campground.images.length) { %> 
                         <img class="img-fluid" src="<%= campground.images[0].url %>" alt="">
-                        <% } %> 
+                        <% } else { %>
+                            <img class="img-fluid" src="https://res.cloudinary.com/dfmretzem/image/upload/v1612525256/CampLife/omng2kxb1cqr3w5a9wp4.jpg" alt="">
+                        <% } %>  
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
