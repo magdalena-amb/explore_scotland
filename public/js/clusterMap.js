@@ -1,5 +1,5 @@
 mapboxgl.accessToken = mapToken;
-var map = new mapboxgl.Map({
+const map = new mapboxgl.Map({
 container: 'map',
 style: 'mapbox://styles/mapbox/light-v10',
 center: [-103.59179687498357, 40.66995747013945],
@@ -79,10 +79,10 @@ paint: {
  
 // inspect a cluster on click
 map.on('click', 'clusters', function (e) {
-var features = map.queryRenderedFeatures(e.point, {
+const features = map.queryRenderedFeatures(e.point, {
 layers: ['clusters']
 });
-var clusterId = features[0].properties.cluster_id;
+const clusterId = features[0].properties.cluster_id;
 map.getSource('campgrounds').getClusterExpansionZoom(
 clusterId,
 function (err, zoom) {
@@ -101,8 +101,7 @@ zoom: zoom
 // the location of the feature, with
 // description HTML from its properties.
 map.on('click', 'unclustered-point', function (e) {
-    const popUpText = e.features[0].properties.popUpMarkup;
-    console.log(popUpText);
+    const { popUpMarkup } = e.features[0].properties;
 const coordinates = e.features[0].geometry.coordinates.slice();
 
  
@@ -115,9 +114,7 @@ coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
  
 new mapboxgl.Popup()
 .setLngLat(coordinates)
-.setHTML(
-    popUpText
-)
+.setHTML(popUpMarkup)
 .addTo(map);
 });
  
