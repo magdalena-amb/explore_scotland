@@ -18,9 +18,13 @@ const helmet = require('helmet');
 
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
-const userRoutes = require('./routes/users');
+const userRoutes = require('./routes/users'); 
 
-mongoose.connect('mongodb://localhost:27017/camplife', {
+const MongoDBStore = require('connect-mongo');
+
+const dbURL = process.env.DB_URL || 'mongodb://localhost:27017/camplife'  
+
+mongoose.connect(dbURL , {
    useNewUrlParser: true,
    useCreateIndex: true,
    useUnifiedTopology: true,
@@ -44,7 +48,16 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
 
+const store = MongoDBStore.create({
+    mongoUrl: dbURL,
+    ttl: 24 * 3600
+});
+store.on("error", function(e){
+    console.log("STORE SESSION ERROR", e)
+})
+
 const sessionConfig = {
+    store,
     secret: 'thisshouldbebettersecret!',
     resave: false,
     saveUninitialized: true,
