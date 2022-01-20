@@ -34,3 +34,7 @@ body {
     color: #333;
     text-shadow: none;
 }
+
+.btn:hover, .btn:active {
+    opacity: 0.7;
+}
