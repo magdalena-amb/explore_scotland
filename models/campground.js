@@ -47,6 +47,7 @@ CampgroundSchema.virtual('properties.popUpMarkup').get(function() {
     <p> ${this.description.substring(0,20)}...</p>`;
 });
 
+//mongoose middleware
 CampgroundSchema.post('findOneAndDelete', async(doc) => {
     if (doc){
         await Review.remove({
